@@ -1,0 +1,63 @@
+-- 
+-- Roll No: 47
+-- Name: Safa sidhi
+-- Program: 
+-- 
+
+
+--
+-- Table structure for table dept
+--
+create table dept(dno varchar(5) primary key,dname varchar(10) unique,location varchar(15));
+alter table dept add mgr_ssn int;
+alter table dept add constraint dept_mgr_ssn_fkey foreign key(mgr_ssn) references employee(ssn);
+
+
+
+--
+-- Table structure for table employee
+--
+create table employee(ssn int primary key,name varchar(20),address varchar(20),dnum char(5));
+alter table employee add super_ssn int;
+alter table employee add constraint employee_super_ssn_fkey foreign key(super_ssn) references employee(ssn);
+alter table employee add constraint employee_dnum_fkey foreign key(dnum) references dept(dno);
+
+
+
+
+
+-- ---------create/alter statement commands----------- # This line may be removed in the actual file
+
+-- --------insert/update statement commands----------- # This line may be removed in the actcual file
+
+--
+-- Dumping data for table dept
+--
+insert into dept values("11","mca","kuttippuram");
+insert into dept values("12","mba","kuttippuram");
+insert into dept values("13","mkba","kuttippuram");
+insert into dept values("14","mlba","kuttippuram");
+insert into dept values("15","mvba","kuttippuram");
+
+--
+-- Dumping data for table employee
+--
+insert into employee values(1,"safa","mookuthala","11");
+insert into employee values(2,"fahim","vadakkekad","12");
+insert into employee values(3,"sajid","mookuthala","13");
+insert into employee values(4,"sajini","mookuthala","14");
+insert into employee values(5,"sasni","mookuthala","15");
+
+
+
+--
+-- SQl Query Statements
+--
+select * from employee;
+select * from dept;
+
+
+
+
+-- -----SQL query statments preceeded by the its question-------- # This line may be removed in the actual file
+-- -----Question number should be commented---------------#This line may be removed in the actual file
