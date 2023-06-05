@@ -1,0 +1,88 @@
+-- 
+-- Roll No: 47
+-- Name: safa sidhi
+-- Program: 
+-- 
+
+
+--
+-- Table structure for table dept
+--
+create table dept(dno char(5) primary key,dname varchar(10) unique,location varchar(15));
+alter table dept add mgr_ssn int;
+alter table dept add constraint dept_mgr_ssn_foreign foreign key(mgr_ssn) references employee(ssn);
+alter table dept add mgr_start_date date;
+--
+-- Table structure for table employee
+--
+create table employee(ssn int primary key,name varchar(10),address varchar(20),dnum char(5));
+alter table employee add super_ssn int;
+alter table employee add constraint employee_super_ssn_foreign foreign key(super_ssn) references employee(ssn);
+alter table employee add constraint employee_dnum_foreign foreign key(dnum) references dept(dno);
+alter table employee add salary int check(salary >= 20000 and salary <= 60000);
+--
+-- Table structure for table project
+--
+create table project (pnumber int primary key, pname varchar(10), plocation varchar(15), dnum char(5), constraint project_dnum_fkey foreign key(dnum) references dept(dno));
+--
+-- Table structure for table workson
+--
+create table workson (essn int, pno int , hours float(3,1), constraint workson_essn_pno_pkey primary key(essn,pno),constraint workson_essn_fkey foreign key(essn) references employee(ssn));
+alter table workson add constraint workson_pno_fkey foreign key(pno) references project(pnumber);
+
+
+
+
+-- ---------create/alter statement commands----------- # This line may be removed in the actual file
+
+--
+-- Dumping data for table dept
+--
+insert into dept(dno,dname,location,mgr_ssn) values("10a","hr","kutt",100);
+insert into dept(dno,dname,location,mgr_ssn) values("10b","finance","kochi",101);
+insert into dept(dno,dname,location,mgr_ssn) values("10c","admin","trissur",102);
+insert into dept(dno,dname,location,mgr_ssn) values("10d","hr1","chennai",103);
+insert into dept(dno,dname,location,mgr_ssn) values("10e","hr2","madras",104);
+update dept set mgr_start_date='2000-10-08' where dno="10a";
+update dept set mgr_start_date='2001-11-27' where dno="10b";
+update dept set mgr_start_date='2002-12-25' where dno="10c";
+update dept set mgr_start_date='2003-12-25' where dno="10d";
+update dept set mgr_start_date='2003-12-26' where dno="10e";
+--
+-- Dumping data for table employee
+--
+insert into employee(ssn,name,address,dnum,super_ssn) values(100,"aa1","vettichira","10a",100);
+insert into employee(ssn,name,address,dnum,super_ssn) values(101,"aa2","kozikode","10e",101);
+insert into employee(ssn,name,address,dnum,super_ssn) values(102,"aa3","kollam","10d",102);
+insert into employee(ssn,name,address,dnum,super_ssn) values(103,"aa4","channei","10b",103);
+insert into employee(ssn,name,address,dnum,super_ssn) values(104,"aa5","malappuram","10c",104);
+update employee set salary=25000 where ssn=100;
+update employee set salary=30000 where ssn=101;
+update employee set salary=26000 where ssn=102;
+update employee set salary=45000 where ssn=103;
+update employee set salary=50000 where ssn=104;
+--
+-- Dumping data for table project
+--
+insert into project values(01,"abc","kuttippuram","10a");
+insert into project values(02,"def","chennai","10b");
+insert into project values(03,"ghi","calicut","10c");
+insert into project values(04,"jkl","vettichira","10d");
+insert into project values(05,"mno","puthanathani","10e");
+--
+-- Dumping data for table workson
+--
+insert into workson values(100,01,11.3);
+insert into workson values(101,02,09.8);
+insert into workson values(102,03,05.6);
+insert into workson values(103,04,08.7);
+insert into workson values(104,05,13.8);
+
+-- --------insert/update statement commands----------- # This line may be removed in the actcual file
+
+--
+-- SQl Query Statements
+--
+
+-- -----SQL query statments preceeded by the its question-------- # This line may be removed in the actual file
+-- -----Question number should be commented---------------#This line may be removed in the actual file
