@@ -61,7 +61,7 @@ select ssn,name from employee where ssn not in (select essn from workson);
 select ssn,name from employee where ssn in (select super_ssn from employee);
 
 -- Q19:Display ssn, name of all employees whose salary is greater than the salary of all the employees in the 'Research' department.
-select ssn,name from employee join dept on dnum=dno where salary>(select max(salary) from employee join dept on dnum=dno where dname='mvba');
+select ssn,name from employee join dept on dnum=dno where salary>(select max(salary) from employee join dept on dnum=dno where dname='%s');
 
 -- Q20:For evey project located in 'Stafford', list the project number, the controlling department number, department name and the department manager's name.
 select p.pnumber,p.dnum,e.name from project p join dept d on p.dnum=d.dno join employee e on d.mgr_ssn=ssn where p.plocation='%s';
