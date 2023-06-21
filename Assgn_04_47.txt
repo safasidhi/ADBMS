@@ -1,0 +1,69 @@
+-- 
+-- Roll No: 47
+-- Name: safa sidhi
+-- Program: 04
+--  
+
+
+--
+-- Q1:Display all details of employee table.
+select * from employee;
+ 
+-- Q2:Display ssn, name, dnum of all employees.
+select ssn,name,dnum from employee;
+
+-- Q3:Display ssn, name, dnum of all employees whose salary greater than 20,000.
+select ssn,name,dnum from employee where salary>%s;
+
+-- Q4:Display all details of department table eliminating duplicate values in the department location.
+select distinct location from dept;
+
+-- Q5:Display ssn, name of all employees whose work for the department located at 'Stafford'.
+select ssn,name from employee join dept on dnum=dno where location='%s';
+
+-- Q6:Display ss, name of all employees who are either work for the department 'Research' or 'Admin'.
+select ssn,name from employee join dept on dnum=dno where dname='%s' or dname='%s';
+
+-- Q7:Display all details of employee table in the descending order of their salary.
+select * from employee order by salary desc;
+
+-- Q8:Display ssn, name of all employees who do not have supervisors.
+select ssn,name from employee where super_ssn is NULL;
+
+-- Q9:Display ssn, name of highest paid employee(s).
+select ssn,name from employee where salary in (select max(salary) from employee);
+
+-- Q10:Display ssn, name of the lowest paid employee(s).
+select ssn,name from employee where salary in (select min(salary) from employee);
+
+-- Q11:Display all employee(s) whose name starts with 's'.
+select name from employee where name like '%s%';
+
+-- Q12:Display all employee(s) whose name ends with 'e'.
+select name from employee where name like '%e%';
+
+-- Q13:Display all employee(s) with letter 'a' anywhere in their name.
+select name from employee where name like '%a%';
+
+-- Q14:Display number, name of the department and the total salary (give 'total_salary' for this column) they pay.
+select dno,dname,location,sum(salary) as total_salary from dept join employee on dno=dnum group by dnum;
+
+-- Q15:Display the number, name, location and the total salary (give 'total_salary' for this column) of the department paying rupees above 50,000.
+select dno,dname,location,sum(salary) as total_salary from dept join employee on dno=dnum group by dnum having total_salary>%s;
+
+-- Q16:Display the number, name, location and the total salary (give 'total_salary' for this column) of the department paying rupees above 50,000 in the ascending order of their payment.
+select dno,dname,location,sum(salary) as total_salary from dept join employee on dno=dnum group by dnum having total_salary>25000 order by    total_salary asc;
+
+-- Q17:Display ssn, name of all employees who are not working on any project.
+select ssn,name from employee where ssn not in (select essn from workson); 
+
+-- Q18:Display ssn, name of all employees who are supervisors.
+select ssn,name from employee where ssn in (select super_ssn from employee);
+
+-- Q19:Display ssn, name of all employees whose salary is greater than the salary of all the employees in the 'Research' department.
+select ssn,name from employee join dept on dnum=dno where salary>(select max(salary) from employee join dept on dnum=dno where dname='mvba');
+
+-- Q20:For evey project located in 'Stafford', list the project number, the controlling department number, department name and the department manager's name.
+select p.pnumber,p.dnum,e.name from project p join dept d on p.dnum=d.dno join employee e on d.mgr_ssn=ssn where p.plocation='%s';
+
+
