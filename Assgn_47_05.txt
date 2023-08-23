@@ -1,0 +1,37 @@
+-- 
+-- Roll No: 47
+-- Name: safa sidhi
+-- Program: Assignment V
+-- 
+
+
+--
+-- Table structure for table <table_name>
+--
+
+CREATE FUNCTION ExtractMonthFromDate (dateValue DATE)RETURNS INT DETERMINISTIC BEGIN declare monthvalue int; set monthvalue = month(datevalue); return monthvalue; end $$
+
+
+CREATE FUNCTION ExtractDayFromDate (dateValue DATE) RETURNS INT DETERMINISTIC BEGIN declare dayvalue int; set dayvalue = day(datevalue); return dayvalue; end $$
+
+
+CREATE FUNCTION ExtractYearFromDate (dateValue DATE) RETURNS INT DETERMINISTIC BEGIN declare Yearvalue int; set Yearvalue = year(datevalue); return Yearvalue; end $$
+
+
+CREATE FUNCTION GetDayFromDate (dateValue DATE) RETURNS varchar(10) DETERMINISTIC BEGIN declare dayvalue varchar(10); set dayvalue = dayname(datevalue); return dayvalue; end $$
+
+
+CREATE FUNCTION GetMonthFromMonthName (MonthName varchar(20)) RETURNS int DETERMINISTIC BEGIN declare monthvalue int; set monthvalue = month(str_to_date(MonthName, '%M')); return monthvalue; end $$
+
+
+create view works_on_proj as select name,pname,hours from employee join workson on ssn=essn join project on pnumber=pno;
+
+
+create view dept_info as select dname,count(name) as No_of_employees,sum(salary) as total_salary from dept join employee on dno=dnum group by dname;
+
+
+create procedure ListEmployeeWithMostProjects() begin declare cur cursor for select * from workson; declare flag int default 0; declare continue handler for not found set flag = 1 ; declare prevssn int default 0; declare count int default 1; declare essnname varchar(20); declare mostssn int; open cur; mostproject:loop fetch cur into essn; if flag=1 then leave mostproject; end if; if prevssn=0 then set prevssn = essn; elseif prevssn=essn then count = count + 1; select essn into mostssn from workson where essn=prevssn; end if; select name into essnname from employee where ssn=mostssn; Select essnname AS 'Employee with Most Projects'; END $$
+
+
+CREATE TRIGGER DeleteAssociatedRecords BEFORE DELETE ON project FOR EACH ROW BEGIN DELETE FROM workson WHERE pnumber = OLD.pno; END $$
+
